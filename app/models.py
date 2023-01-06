@@ -8,36 +8,42 @@ class Team(models.Model):
     name = models.CharField("team name", max_length=20, unique=True)
 
     def __str__(self) -> str:
-        return f"<Team {self.name}>"
+        return f"{self.name}"
 
 
 class User(models.Model):
-    user_id = models.IntegerField("user id", primary_key=True, unique=True)
+    id = models.AutoField("id", primary_key=True)
     name = models.CharField("name", max_length=30)
-    team = models.ForeignKey(Team, blank=False, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f"<User {self.name}>"
+        return f"{self.id} | {self.name}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        user = None
         for user in self.team.user_set.all():
             if user.name == self.name:
-                user = user
+                for event in self.team.event_set.all():
+                    Presence.objects.create(user=user, event=event)
                 break
-        for event in self.team.event_set.all():
-            Presence.objects.create(user=user, event=event)
+
+
+class ParentEvent(models.Model):
+    name = models.CharField("parent event", max_length=20, unique=True)
+
+    def __str__(self) -> str:
+        return f"{self.name}"
 
 
 class Event(models.Model):
-    event_id = models.IntegerField("event id", primary_key=True, unique=True)
-    name = models.CharField("event name", max_length=30, unique=True)
-    participant = models.ManyToManyField(Team)
-    date = models.DateField("date", null=True)
+    id = models.AutoField("id", primary_key=True)
+    parent = models.ForeignKey(ParentEvent, on_delete=models.CASCADE, verbose_name="Parent Event")
+    name = models.CharField("name", max_length=30, unique=True)
+    participant = models.ManyToManyField(Team, blank=True)
+    date = models.DateField("date", null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"<Event {self.name}>"
+        return f"{self.id} | {self.name}"
 
 
 def participant_changed(sender, **kwargs):
@@ -57,17 +63,17 @@ class Presence(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     attend = models.BooleanField("Attendance", default=False)
-    datetime = models.DateTimeField('datetime', null=True)
+    datetime = models.DateTimeField('datetime', null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"<Presence {self.user.name} on {self.event.name}>"
+        return f"{self.user.id} | {self.user.name}"
 
 
 def attend(user_id: int, event_id: int):
-    user = get_object_or_404(User, user_id=user_id)
-    event = get_object_or_404(Event, event_id=event_id)
+    user = get_object_or_404(User, pk=user_id)
+    event = get_object_or_404(Event, pk=event_id)
     if user.team not in event.participant.all():
-        Event.objects.get_or_create(name=f"NOT INCLUDED {event.name}")
+        Event.objects.get_or_create(name=f"NOT INCLUDED {event.name}", parent=event.parent)
         event = Event.objects.get(name=f"NOT INCLUDED {event.name}")
         Presence.objects.create(user=user, event=event, attend=True, datetime=timezone.now())
         return "not_included"
@@ -80,9 +86,9 @@ def attend(user_id: int, event_id: int):
 
 def get_events():
     data = list()
-    for event in Event.objects.order_by('-date', '-event_id').all():
+    for event in Event.objects.order_by('-date', '-pk').all():
         data.append({
-            'event_id'      : event.event_id,
+            'event_id'      : event.pk,
             'name'          : event.name,
             'date'          : event.date,
             'team_count'    : event.participant.count()
@@ -91,9 +97,10 @@ def get_events():
 
 def get_event_participant(event_id):
     data = list()
-    event = Event.objects.get(event_id=event_id)
+    event = Event.objects.get(pk=event_id)
     for presence in Presence.objects.filter(event=event).all():
         data.append({
+            'user_id'   : presence.user.pk,
             'name'      : presence.user.name,
             'team'      : presence.user.team.name,
             'attend'    : presence.attend,

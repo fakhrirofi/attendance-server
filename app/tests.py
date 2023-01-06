@@ -5,9 +5,10 @@ from .models import *
 class ModelTest(TestCase):
 
     def setUp(self):
+        ParentEvent.objects.create(name='parent')
         Team.objects.create(name='synthesis')
-        User.objects.create(user_id=1, name='alex', team=Team.objects.first())
-        Event.objects.create(event_id=1, name='opening')
+        User.objects.create(name='alex', team=Team.objects.first())
+        Event.objects.create(name='opening', parent=ParentEvent.objects.get(pk=1))
         event = Event.objects.get(name='opening')
         event.participant.add(Team.objects.get(name='synthesis'))
 
@@ -29,7 +30,7 @@ class ModelTest(TestCase):
 
     def test_event_name_unique(self):
         def create_event():
-            event1 = Event(name='opening')
+            event1 = Event(name='opening', parent=ParentEvent.objects.get(pk=1))
             event1.save() # Error unique
         self.assertRaises(Exception, create_event)
 
@@ -59,7 +60,7 @@ class ModelTest(TestCase):
         Team.objects.create(name='team 2')
         team = Team.objects.get(pk=2)
         User.objects.create(name='user 2', team=team)
-        event = Event.objects.get(event_id=1)
+        event = Event.objects.get(pk=1)
 
         event.participant.add(team)
         self.assertEqual(len(Presence.objects.all()), 2)
@@ -82,6 +83,7 @@ class ModelTest(TestCase):
         self.assertEqual(
             get_event_participant(1),
             [{
+            'user_id'   : 1,
             'name'      : 'alex',
             'team'      : 'synthesis',
             'attend'    : False,
