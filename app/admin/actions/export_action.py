@@ -1,3 +1,4 @@
+# https://djangosnippets.org/snippets/10681/
 from openpyxl import Workbook
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
