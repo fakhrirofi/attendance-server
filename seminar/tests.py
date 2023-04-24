@@ -40,7 +40,7 @@ class ModelTest(TestCase):
                     'name'              : 'opening',
                     'datetime'          : datetime(2023, 4, 24),
                     'registered'        : 1,
-                    'max_participant'   : None
+                    'max_participant'   : 2
                 }
             ]
         )
