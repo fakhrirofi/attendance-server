@@ -20,7 +20,10 @@ def style_output_file(file):
     return file
 
 def convert_data_date(value):
-    return value.strftime('%d/%m/%Y')
+    return value.strftime('%Y/%m/%d')
+
+def convert_data_datetime(value):
+    return value.strftime('%Y/%m/%d %H:%M:%S')
 
 def convert_boolean_field(value):
     if value:
@@ -46,7 +49,9 @@ def export_as_xls(self, request, queryset):
                 value = getattr(self, field)(obj)
             else:
                 value = getattr(obj, field)
-                if isinstance(value, datetime) or isinstance(value, date):
+                if isinstance(value, datetime):
+                    value = convert_data_datetime(value)
+                elif isinstance(value, date):
                     value = convert_data_date(value)
                 elif isinstance(value, bool):
                     value = convert_boolean_field(value)
