@@ -1,0 +1,51 @@
+{% extends "seminar/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-section">
+    <div class="home-event">
+            <div class="container">
+                <div class="header">
+                    <div class="entry-title">
+                        <h2>YMCC Event Registration</h2>
+                    </div><!-- entry-title -->
+                </div><!-- header -->
+                <div class="home-event-wrap">
+                    <div class="row">
+                        <div class="col-12 col-md-6 ">
+                            <figure class="featured-image">
+                                <img src="{% static 'seminar/img/news-image-1.jpg'%}" alt="">
+                            </figure><!-- featured-image -->
+                            <div class="content-wrapper">
+                                <div class="entry-content">
+                                    <div class="entry-header">
+                                        <h2>Seminar Nasional</h2>
+                                    </div><!-- entry-header -->
+                                    <!-- entry-meta
+                                    <div class="entry-meta">
+                                        <span class="author-name"><a href="#"> By James Williams</a></span>
+                                        <span class="space">|</span>
+                                        <span class="comments-count"><a href="#">3 comments</a></span>
+                                    </div>
+                                    -->
+                                    <div class="entry-meta">
+                                    <span>20 March 2023 | 08.00 - 12.00 WIB</span>
+                                    </div>
+                                    <div class="box-link-date"><a href="#">Register</a></div>
+                                    <div class="entry-description">
+                                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                        Quam omnis mollitia accusamus. Laudantium porro praesentium dolores quia.
+                                        Saepe reiciendis, quaerat corrupti, eveniet repudiandae eaque consequatur nam,
+                                        ex impedit quam vel.
+                                        </p>
+                                    </div><!-- entry-description -->
+                                </div><!-- entry-content -->
+                            </div><!-- content-wrapper -->
+                        </div><!-- .col-6 -->
+                    </div><!-- row -->
+                </div><!-- home-event-wrap -->
+            </div><!-- container -->
+        </div><!-- home-event -->
+    </div>
+</div>
+{% endblock content %}
