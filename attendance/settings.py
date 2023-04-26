@@ -34,15 +34,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'app.apps.AppConfig',
-    'seminar.apps.SeminarConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'competition.apps.CompetitionConfig',
+    'seminar.apps.SeminarConfig',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
+
+# APPLICATION SETTINGS
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

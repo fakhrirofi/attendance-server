@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('form', views.registration, name='form')
+    path('form/<event_name>', views.registration, name='registration')
 ]

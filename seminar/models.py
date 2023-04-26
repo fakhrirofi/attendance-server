@@ -7,21 +7,23 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Event(models.Model):
-    name = models.CharField("name", max_length=30)
+    name = models.CharField("name", max_length=50)
     datetime = models.DateTimeField("date time")
-    max_participant = models.IntegerField("max participant", blank=True, null=True)
+    description = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to="event_image")
+    max_participant = models.IntegerField("max participant (opsional)", blank=True, null=True)
 
     def __str__(self):
         return f"<Event {self.name}>"
 
 
 class Presence(models.Model):
-    name = models.CharField("name", max_length=30)
+    name = models.CharField("name", max_length=50)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    institution_origin = models.CharField("institution origin", max_length=30)
+    institution_origin = models.CharField("institution origin", max_length=50)
     email = models.EmailField("email")
     phone_number = PhoneNumberField(null=False, blank=False)
-    proof_payment = models.ImageField(upload_to="payment")
+    proof_payment = models.ImageField("Proof of payment", upload_to="payment")
     payment_check = models.BooleanField("payment check", default=False)
     attendance = models.BooleanField("attendance", default=False)
     datetime = models.DateTimeField("attendance time", blank=True, null=True)
