@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Event(models.Model):
     name = models.CharField("name", max_length=42)
     datetime = models.DateTimeField("date time")
-    description = models.CharField(max_length=1000)
+    description = models.TextField()
     place = models.CharField(max_length=46)
     image = models.ImageField(upload_to="event_image")
     max_participant = models.IntegerField("max participant (opsional)", blank=True, null=True)
@@ -22,7 +22,7 @@ class Presence(models.Model):
     institution = models.CharField(max_length=48)
     email = models.EmailField("email")
     phone_number = PhoneNumberField(null=False, blank=False)
-    proof_payment = models.ImageField("Proof of payment", upload_to="payment", null=True)
+    proof_payment = models.ImageField("Proof of payment (image)", upload_to="payment", null=True)
     # proof payment is nullable to make it flexible
     payment_check = models.BooleanField("payment check", default=False)
     attendance = models.BooleanField("attendance", default=False)

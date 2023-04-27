@@ -10,7 +10,7 @@ class RegistrationForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self ).__init__(*args, **kwargs)
-        self.fields['captcha'] = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+        self.fields['captcha'] = ReCaptchaField(widget=ReCaptchaV2Checkbox, label="")
 
 # STATES = (
 #     ('', 'Choose...'),
