@@ -5,9 +5,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Event(models.Model):
-    name = models.CharField("name", max_length=50)
+    name = models.CharField("name", max_length=42)
     datetime = models.DateTimeField("date time")
     description = models.CharField(max_length=1000)
+    place = models.CharField(max_length=46)
     image = models.ImageField(upload_to="event_image")
     max_participant = models.IntegerField("max participant (opsional)", blank=True, null=True)
 
@@ -16,9 +17,9 @@ class Event(models.Model):
 
 
 class Presence(models.Model):
-    name = models.CharField("name", max_length=50)
+    name = models.CharField("name", max_length=48)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    institution_origin = models.CharField("institution origin", max_length=50)
+    institution = models.CharField(max_length=48)
     email = models.EmailField("email")
     phone_number = PhoneNumberField(null=False, blank=False)
     proof_payment = models.ImageField("Proof of payment", upload_to="payment", null=True)
@@ -58,7 +59,7 @@ def get_event_presence(event_id):
     for presence in event.presence_set.all():
         data.append({
             'name'                  : presence.name,
-            'institution_origin'    : presence.institution_origin,
+            'institution'           : presence.institution,
             'email'                 : presence.email,
             'attendance'            : presence.attendance,
             'datetime'              : presence.datetime,

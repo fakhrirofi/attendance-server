@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block head %}
+    <title>YMCC 2023 | Event Registration</title>
     <link rel="stylesheet" href="{% static 'event/css/style.css' %}">
 {% endblock head %}
 
@@ -35,7 +36,8 @@
                                     </div>
                                     -->
                                     <div class="entry-meta">
-                                    <span>{{ event.datetime.date }} | {{ event.datetime.time }}</span>
+                                    <span>{{ event.place }}</span>
+                                    <span>{{ event.datetime.date }}. {{ event.datetime.time }}</span>
                                     </div>
                                     <div class="box-link-date"><a href="{% url 'registration' event.name %}">Register</a></div>
                                     <div class="entry-description">

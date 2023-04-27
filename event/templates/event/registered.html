@@ -1,0 +1,28 @@
+{% extends "event/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <title>YMCC 2023 | Registration Success</title>
+    <link rel="stylesheet" href="{% static 'event/css/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container mb-5 mt-5 pl-5 pr-5">
+  <h4 class="">Registration success!</h3>
+  <p style="font-size: small;">Download the QR code below and take it with you when you attend the YMCC event. You can revisit this page if your QR code is lost.</p>
+  <hr class="mb-4">
+  <div class="d-flex justify-content-center">
+  <a style="font-size: large;" download="qr_code_attendance_ymcc" href="data:image/jpeg;base64,{{ qr_code }}">Download</a>
+  </div>
+  <div class="d-flex justify-content-center">
+  <img style="max-width: 50%;" id="ItemPreview" src="">
+  </div>
+  <script>
+  document.getElementById("ItemPreview").src = "data:image/jpeg;base64," + "{{ qr_code }}";
+  </script>
+  <div class="d-flex justify-content-center">
+  <a href="{% url 'index' %}"">Back to Event</a>
+  </div>
+</div>
+{% endblock content %}

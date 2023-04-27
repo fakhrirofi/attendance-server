@@ -93,7 +93,7 @@ body {
     margin-bottom: 0px;
     text-align: center;
     padding: 3px 8px;
-    background: -webkit-linear-gradient(#00d0ff, #25ffbf);
+    background: -webkit-linear-gradient(#00abd1, #00c98c);
     font-size: 15px;
     font-weight: 500;
 }
@@ -148,7 +148,7 @@ body {
     text-align: justify;
     margin-top: 5px;
     font-size: 15px;
-    color: hsl(0, 0%, 60%);
+    color: hsl(0, 0%, 35%);
     line-height: 2;
 }
 

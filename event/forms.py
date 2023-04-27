@@ -6,7 +6,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Presence
-        fields = ["name", "email", "institution_origin", "phone_number", "proof_payment"]
+        fields = ["name", "email", "institution", "phone_number", "proof_payment"]
     
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self ).__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class RegistrationForm(forms.ModelForm):
 
 # class RegistrationForm(forms.Form):
 #     name = forms.CharField(max_length=50)
-#     institution_origin = forms.CharField(max_length=50)
+#     institution = forms.CharField(max_length=50)
 #     email = forms.EmailField()
 #     phone_number = PhoneNumberField(label="Phone number (WhatsApp)")
 #     proof_payment = forms.FileField(label="Proof of payment")

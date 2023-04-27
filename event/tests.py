@@ -14,7 +14,7 @@ class ModelTest(TestCase):
         Presence.objects.create(
             name='alex',
             event=Event.objects.first(),
-            institution_origin="upn",
+            institution="upn",
             email="alex@student.upnyk.ac.id",
             phone_number = "+628123456789"
         )
@@ -52,7 +52,7 @@ class ModelTest(TestCase):
             [
                 {
                     'name'                  : 'alex',
-                    'institution_origin'    : 'upn',
+                    'institution'    : 'upn',
                     'email'                 : "alex@student.upnyk.ac.id",
                     'attendance'            : False,
                     'datetime'              : None
