@@ -1,15 +1,15 @@
-{% extends "seminar/base.html" %}
+{% extends "event/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'seminar/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/style.css' %}">
 {% endblock head %}
 
 {% block content %}
 <div class="container mb-5 mt-5 pl-5 pr-5">
-  <h3 class="">{{ event.name }}</h3>
-  <hr>
+  <h3 class="">{{ event.name }} Registration Form</h3>
+  <hr class="mb-4">
   <form action="{% url 'registration' event.name %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}

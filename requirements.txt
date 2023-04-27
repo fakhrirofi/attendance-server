@@ -8,6 +8,7 @@ Django==4.1.5
 django-crispy-forms==2.0
 django-phonenumbers==1.0.1
 django-phonenumber-field==7.0.2
+django-recaptcha==3.0.0
 et-xmlfile==1.1.0
 MarkupPy==1.14
 odfpy==1.4.1

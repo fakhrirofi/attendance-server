@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--639z8yt$kq!#yx1chepvx!8m)@wto3o5wjnnb)z-1itgck&@v'
-API_KEY = 'doiufio928379IYISUAK09q23nafui!&&#$hgjweHJGJHGyuebFj8'
+API_KEY = 'uKkxAih2i4k81ZGxrsTIHX8hsPt_E4b8XI642sr6sq0='
 # User key should be the same with the another app to encrypt user id
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -41,10 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'competition.apps.CompetitionConfig',
-    'seminar.apps.SeminarConfig',
+    'event.apps.EventConfig',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'captcha'
 ]
+
+# CAPTCHA
+RECAPTCHA_PUBLIC_KEY = '6Lc-acAlAAAAAHqR1aWAhQJ_N8h8Cl_G0GbTyFf3'
+RECAPTCHA_PRIVATE_KEY = '6Lc-acAlAAAAAARcqZnD4KxzrFAzFE3VzUDN5xec'
 
 # APPLICATION SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

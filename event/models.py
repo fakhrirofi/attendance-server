@@ -1,5 +1,3 @@
-from cryptography.fernet import Fernet
-from django.conf import settings
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -23,7 +21,8 @@ class Presence(models.Model):
     institution_origin = models.CharField("institution origin", max_length=50)
     email = models.EmailField("email")
     phone_number = PhoneNumberField(null=False, blank=False)
-    proof_payment = models.ImageField("Proof of payment", upload_to="payment")
+    proof_payment = models.ImageField("Proof of payment", upload_to="payment", null=True)
+    # proof payment is nullable to make it flexible
     payment_check = models.BooleanField("payment check", default=False)
     attendance = models.BooleanField("attendance", default=False)
     datetime = models.DateTimeField("attendance time", blank=True, null=True)

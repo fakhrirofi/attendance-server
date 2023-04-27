@@ -1,13 +1,18 @@
-import os
 import qrcode
-import tempfile
-import zipfile
+from cryptography.fernet import Fernet
+from django.conf import settings
 from io import BytesIO
 from PIL import Image
-from django.http import HttpResponse
+from .models import Presence
 
 
-def get_qr_code(text) -> bytes: 
+def get_encryption(presence: Presence) -> str:
+    data = f"{presence.event.id}|{presence.id}"
+    key = settings.API_KEY.encode("utf-8")
+    f = Fernet(key)
+    return f.encrypt(str(data).encode("utf-8"))
+
+def get_qr_code(text: str) -> bytes: 
     # https://www.geeksforgeeks.org/how-to-generate-qr-codes-with-a-custom-logo-using-python/
     Logo_link = 'assets/logo-ymcc.png'
     logo = Image.open(Logo_link)
@@ -15,7 +20,7 @@ def get_qr_code(text) -> bytes:
     # adjust image size
     wpercent = (basewidth/float(logo.size[0]))
     hsize = int((float(logo.size[1])*float(wpercent)))
-    logo = logo.resize((basewidth, hsize), Image.ANTIALIAS)
+    logo = logo.resize((basewidth, hsize), Image.LANCZOS)
     QRcode = qrcode.QRCode(
         error_correction=qrcode.constants.ERROR_CORRECT_H
     )
@@ -35,15 +40,6 @@ def get_qr_code(text) -> bytes:
     QRimg.close()
     return s.getvalue()
 
-def download_qr_code(self, request, queryset):
-    with tempfile.SpooledTemporaryFile() as tmp:
-        with zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED) as archive:
-            for user in queryset:
-                text = f"{str(user.id).zfill(3)}|{user.name}"
-                qr_bytes = get_qr_code(text)
-                archive.writestr(text + ".jpg", qr_bytes)
-        tmp.seek(0)
-        response = HttpResponse(content=tmp.read(), content_type='application/x-zip-compressed')
-        response['Content-Disposition'] = 'attachment; filename="USER QRCODE.zip"'
-        return response
-download_qr_code.short_description = "Download QR code"
+if __name__ == "__main__":
+    a = get_qr_code("hello world")
+    print(a)

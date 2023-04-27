@@ -1,10 +1,16 @@
 from django import forms
 from .models import Presence
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
-class Registration(forms.ModelForm):
+class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Presence
         fields = ["name", "email", "institution_origin", "phone_number", "proof_payment"]
+    
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self ).__init__(*args, **kwargs)
+        self.fields['captcha'] = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 # STATES = (
 #     ('', 'Choose...'),
@@ -13,7 +19,7 @@ class Registration(forms.ModelForm):
 #     ('RJ', 'Rio de Janeiro')
 # )
 
-# class Registration(forms.Form):
+# class RegistrationForm(forms.Form):
 #     name = forms.CharField(max_length=50)
 #     institution_origin = forms.CharField(max_length=50)
 #     email = forms.EmailField()
