@@ -8,9 +8,11 @@ class Event(models.Model):
     name = models.CharField("name", max_length=42)
     datetime = models.DateTimeField("date time")
     description = models.TextField()
+    group_link = models.CharField(max_length=100)
     place = models.CharField(max_length=46)
     image = models.ImageField(upload_to="event_image")
-    max_participant = models.IntegerField("max participant (opsional)", blank=True, null=True)
+    is_free = models.BooleanField("free registration")
+    max_participant = models.IntegerField("max participant (optional)", blank=True, null=True)
 
     def __str__(self):
         return f"<Event {self.name}>"
@@ -21,7 +23,7 @@ class Presence(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     institution = models.CharField(max_length=48)
     email = models.EmailField("email")
-    phone_number = PhoneNumberField(null=False, blank=False)
+    phone_number = PhoneNumberField("Phone number (WhatsApp)", null=False, blank=False)
     proof_payment = models.ImageField("Proof of payment (image)", upload_to="payment", null=True)
     # proof payment is nullable to make it flexible
     payment_check = models.BooleanField("payment check", default=False)

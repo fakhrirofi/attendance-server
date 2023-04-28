@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,15 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--639z8yt$kq!#yx1chepvx!8m)@wto3o5wjnnb)z-1itgck&@v'
-API_KEY = 'uKkxAih2i4k81ZGxrsTIHX8hsPt_E4b8XI642sr6sq0='
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+API_KEY = str(os.getenv('API_KEY'))
 # User key should be the same with the another app to encrypt user id
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+SITE_URL = 'https://ymcc-event.hmtaupnyk.com'
 
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -48,8 +52,8 @@ INSTALLED_APPS = [
 ]
 
 # CAPTCHA
-RECAPTCHA_PUBLIC_KEY = '6Lc-acAlAAAAAHqR1aWAhQJ_N8h8Cl_G0GbTyFf3'
-RECAPTCHA_PRIVATE_KEY = '6Lc-acAlAAAAAARcqZnD4KxzrFAzFE3VzUDN5xec'
+RECAPTCHA_PUBLIC_KEY = str(os.getenv('RECAPTCHA_PUBLIC_KEY'))
+RECAPTCHA_PRIVATE_KEY = str(os.getenv('RECAPTCHA_PRIVATE_KEY'))
 
 # APPLICATION SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -145,4 +149,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'  
   
 # Path where media is stored  
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# SERVER EMAIL
+DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL'))
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# if DEBUG:
+#     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_USE_SSL = True

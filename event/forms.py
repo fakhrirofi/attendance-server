@@ -12,6 +12,11 @@ class RegistrationForm(forms.ModelForm):
         super(RegistrationForm, self ).__init__(*args, **kwargs)
         self.fields['captcha'] = ReCaptchaField(widget=ReCaptchaV2Checkbox, label="")
 
+class RegistrationFormFree(RegistrationForm):
+    class Meta:
+        model = Presence
+        fields = ["name", "email", "institution", "phone_number"]
+
 # STATES = (
 #     ('', 'Choose...'),
 #     ('MG', 'Minas Gerais'),

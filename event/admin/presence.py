@@ -1,5 +1,5 @@
 from . import admin, Presence, ModelAdmin
-
+from . import export_as_xls, verify_registration
 
 class PresenceAdmin(ModelAdmin):
     list_display_links = ['name']
@@ -9,6 +9,7 @@ class PresenceAdmin(ModelAdmin):
     ]
     ordering = ['pk']
     list_filter = ['event']
+    actions = [export_as_xls, verify_registration]
 
 
 admin.site.register(Presence, PresenceAdmin)

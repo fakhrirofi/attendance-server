@@ -109,7 +109,3 @@ def get_event_ticket(enc: str, presence: Presence) -> bytes:
     img.save(s, "jpeg")
     img.close()
     return s.getvalue()
-
-if __name__ == "__main__":
-    a = get_qr_code("hello world")
-    print(a)

@@ -14,6 +14,7 @@ MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.0.10
 Pillow==9.5.0
+python-dotenv==1.0.0
 PyYAML==6.0
 qrcode==7.4.2
 sqlparse==0.4.3

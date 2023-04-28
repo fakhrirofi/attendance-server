@@ -10,19 +10,27 @@
 {% block content %}
 <div class="container mb-5 mt-5 pl-5 pr-5">
   <h4 class="">Registration success!</h3>
-  <p style="font-size: small;">Download the QR code below and take it with you when you attend the YMCC event. You can revisit this page if your QR code is lost.</p>
+  <p style="font-size: small;">
+  Download the QR code below and take it with you when you attend the YMCC event.
+  You can revisit this page if your QR code is lost.
+  </p>
   <hr class="mb-4">
   <div class="d-flex justify-content-center">
-  <a style="font-size: large;" download="qr_code_attendance_ymcc" href="data:image/jpeg;base64,{{ qr_code }}">Download</a>
+  <p class="mb-0">Click <a target="_blank" href="{{ group_link }}">here</a> to Join WhatsApp Group</p>
   </div>
   <div class="d-flex justify-content-center">
-  <img style="max-width: 50%;" id="ItemPreview" src="">
+  <a style="font-size: large;" download="YMCC_{{ filename }}" href="data:image/jpeg;base64,{{ qr_code }}">Download QR Code</a>
+  </div>
+  <div class="d-flex justify-content-center">
+  <img style="max-width: 75%;" id="ItemPreview" src="">
   </div>
   <script>
   document.getElementById("ItemPreview").src = "data:image/jpeg;base64," + "{{ qr_code }}";
   </script>
+  <!-- 
+   -->
   <div class="d-flex justify-content-center">
-  <a href="{% url 'index' %}"">Back to Event</a>
+  <a href="{% url 'index' %}">YMCC Event Registration</a>
   </div>
 </div>
 {% endblock content %}

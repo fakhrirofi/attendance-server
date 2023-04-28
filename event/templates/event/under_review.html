@@ -1,0 +1,30 @@
+{% extends "event/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <title>YMCC 2023 | Registration Success</title>
+    <link rel="stylesheet" href="{% static 'event/css/style.css' %}">
+    <style>
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    </style>
+{% endblock head %}
+
+{% block content %}
+<div class="container mb-5 mt-5 pl-5 pr-5">
+  <h4 class="">Registration success!</h3>
+  <hr class="mb-4">
+  <div class="d-flex justify-content-center">
+  <p>Your registration is being verified, we will send whatsapp group and registration qr code to your email once registration is verified.</p>
+  </div>
+  <!-- 
+  -->
+  <div class="d-flex justify-content-center">
+  <a href="{% url 'index' %}">Back to Event</a>
+  </div>
+</div>
+{% endblock content %}

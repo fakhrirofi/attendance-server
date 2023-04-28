@@ -8,49 +8,47 @@
 
 {% block content %}
 <div class="content-section">
-    <div class="home-event">
-            <div class="container">
-                <div class="header">
-                    <div class="entry-title">
-                        <h2>YMCC Event Registration</h2>
-                        <hr style="color: #272323">
-                    </div><!-- entry-title -->
-                </div><!-- header -->
-                <div class="home-event-wrap">
-                    <div class="row">
-                        {% for event in events %}
-                        <div class="col-12 col-md-6 ">
-                            <figure class="featured-image">
-                                <img src="{{ event.image.url }}" alt="">
-                            </figure><!-- featured-image -->
-                            <div class="content-wrapper">
-                                <div class="entry-content">
-                                    <div class="entry-header">
-                                        <h2>{{ event.name }}</h2>
-                                    </div><!-- entry-header -->
-                                    <!-- entry-meta
-                                    <div class="entry-meta">
-                                        <span class="author-name"><a href="#"> By James Williams</a></span>
-                                        <span class="space">|</span>
-                                        <span class="comments-count"><a href="#">3 comments</a></span>
-                                    </div>
-                                    -->
-                                    <div class="entry-meta">
-                                    <span>{{ event.place }}</span>
-                                    <span>{{ event.datetime.date }}. {{ event.datetime.time }}</span>
-                                    </div>
-                                    <div class="box-link-date"><a href="{% url 'registration' event.name %}">Register</a></div>
-                                    <div class="entry-description">
-                                        <p>{{ event.description }}</p>
-                                    </div><!-- entry-description -->
-                                </div><!-- entry-content -->
-                            </div><!-- content-wrapper -->
-                        </div><!-- .col-6 -->
-                        {% endfor %}
-                    </div><!-- row -->
-                </div><!-- home-event-wrap -->
-            </div><!-- container -->
-        </div><!-- home-event -->
-    </div>
+  <div class="home-event">
+      <div class="container">
+        <div class="header">
+          <div class="entry-title">
+            <h2>YMCC Event Registration</h2>
+            <hr style="color: #272323">
+          </div><!-- entry-title -->
+        </div><!-- header -->
+        <div class="home-event-wrap">
+          <div class="row">
+            {% for event in events %}
+            <div class="col-12 col-md-6 pb-3">
+              <figure class="featured-image">
+                  <img src="{{ event.image.url }}" alt="">
+              </figure><!-- featured-image -->
+              <div class="content-wrapper">
+                <div class="entry-content">
+									<div>
+										<div class="entry-header">
+											<h2>{{ event.name }}</h2>
+										</div><!-- entry-header -->
+											<div class="entry-meta">
+												<span>{{ event.place }}, {{ event.datetime.date }}. {{ event.datetime.time }}</span>
+											</div>
+											{% if event.is_free %}
+												<div class="entry-meta">
+													<span>(Free Registration)</span>
+												</div>
+											{% endif %}
+											<div class="box-link-date"><a href="{% url 'registration' event.name %}">Register</a></div>
+										<div class="entry-description">
+											<p>{{ event.description }}</p>
+										</div><!-- entry-description -->
+									</div>
+                </div><!-- entry-content -->
+              </div><!-- content-wrapper -->
+            </div><!-- .col-6 -->
+            {% endfor %}
+          </div><!-- row -->
+        </div><!-- home-event-wrap -->
+      </div><!-- container -->
+  </div><!-- home-event -->
 </div>
 {% endblock content %}
