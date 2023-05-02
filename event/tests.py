@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.conf import settings
 from .user_qr_code import encrypt
 
-
 from .models import *
+
 
 class DatabaseTest(TestCase):
 
@@ -73,6 +73,8 @@ class DatabaseTest(TestCase):
             ]
         )
 
+
+settings.ENCRYPTION_KEY = 'uKkxAih2i4k81ZGxrsTIHX8hsPt_E4b8XI642sr6sq0='
 class APITest(TestCase):
     ENC = encrypt("1")
 
