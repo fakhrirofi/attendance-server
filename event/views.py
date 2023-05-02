@@ -1,6 +1,7 @@
 import base64
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from urllib.parse import unquote
 
 from .forms import RegistrationForm, RegistrationFormFree
 from .models import Event, Presence
@@ -13,8 +14,7 @@ def index(request):
     })
 
 def registration(request, event_name):
-    return HttpResponse(f"hello world {event_name}")
-    event = get_object_or_404(Event, name=event_name)
+    event = get_object_or_404(Event, name=unquote(event_name))
     if not event.is_open:
         return HttpResponseRedirect("/")
     if request.method == 'POST':
