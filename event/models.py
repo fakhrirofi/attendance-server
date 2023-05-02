@@ -12,6 +12,7 @@ class Event(models.Model):
     place = models.CharField(max_length=46)
     image = models.ImageField(upload_to="event_image")
     is_free = models.BooleanField("free registration")
+    is_open = models.BooleanField("open registration")
     max_participant = models.IntegerField("max participant (optional)", blank=True, null=True)
 
     def __str__(self):
@@ -50,6 +51,8 @@ def get_events():
             'id'                : event.pk,
             'name'              : event.name,
             'datetime'          : event.datetime,
+            'is_free'           : event.is_free,
+            'is_open'           : event.is_open,
             'registered'        : event.presence_set.count(),
             'max_participant'   : event.max_participant
         })
@@ -63,6 +66,7 @@ def get_event_presence(event_id):
             'name'                  : presence.name,
             'institution'           : presence.institution,
             'email'                 : presence.email,
+            'payment_check'         : presence.payment_check,
             'attendance'            : presence.attendance,
             'datetime'              : presence.datetime,
         })

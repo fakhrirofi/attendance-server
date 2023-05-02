@@ -4,7 +4,7 @@ from . import admin, Event, ModelAdmin
 class EventAdmin(ModelAdmin):
     list_display_links = ['name']
     list_display = [
-        'name', 'datetime', 'place', 'registered', 
+        'name', 'datetime', 'place', 'is_free', 'is_open', 'registered', 
     ]
     ordering = ['pk']
 

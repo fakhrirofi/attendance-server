@@ -37,7 +37,11 @@
 													<span>(Free Registration)</span>
 												</div>
 											{% endif %}
+                      {% if event.is_open %}
 											<div class="box-link-date"><a href="{% url 'registration' event.name %}">Register</a></div>
+                      {% else %}
+											<div class="box-link-date" style=""><a role="link" aria-disabled="true">Registration Closed</a></div>
+                      {% endif %}
 										<div class="entry-description">
 											<p>{{ event.description }}</p>
 										</div><!-- entry-description -->

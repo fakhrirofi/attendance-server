@@ -6,7 +6,6 @@ from .forms import RegistrationForm, RegistrationFormFree
 from .models import Event, Presence
 from .user_qr_code import encrypt, decrypt, get_event_ticket
 
-
 def index(request):
     events = Event.objects.all()
     return render(request, 'event/index.html', {
@@ -15,6 +14,8 @@ def index(request):
 
 def registration(request, event_name):
     event = get_object_or_404(Event, name=event_name)
+    if not event.is_open:
+        return HttpResponseRedirect("/")
     if request.method == 'POST':
         if event.is_free:
             form = RegistrationFormFree(request.POST, request.FILES)

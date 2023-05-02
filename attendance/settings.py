@@ -26,6 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 API_KEY = str(os.getenv('API_KEY'))
+ENCRYPTION_KEY = str(os.getenv('ENCRYPTION_KEY'))
 # User key should be the same with the another app to encrypt user id
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -33,7 +34,7 @@ DEBUG = True
 
 SITE_URL = 'https://ymcc-event.hmtaupnyk.com'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -154,10 +155,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # SERVER EMAIL
 DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL'))
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# if DEBUG:
-#     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+try:
+    EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+except Exception:
+    EMAIL_PORT = 465
 EMAIL_USE_SSL = True

@@ -9,7 +9,7 @@ from .models import Presence
 def encrypt(data: str) -> str:
     try:
         data = data.encode("utf-8")
-        f = Fernet(settings.API_KEY.encode("utf-8"))
+        f = Fernet(settings.ENCRYPTION_KEY.encode("utf-8"))
         return f.encrypt(data).decode("utf-8")
     except Exception:
         return "invalid"
@@ -17,7 +17,7 @@ def encrypt(data: str) -> str:
 def decrypt(data: str) -> str:
     try:
         data = data.encode("utf-8")
-        f = Fernet(settings.API_KEY.encode("utf-8"))
+        f = Fernet(settings.ENCRYPTION_KEY.encode("utf-8"))
         return f.decrypt(data).decode("utf-8")
     except Exception:
         return "invalid"
