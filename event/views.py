@@ -13,6 +13,7 @@ def index(request):
     })
 
 def registration(request, event_name):
+    return HttpResponse("hello world")
     event = get_object_or_404(Event, name=event_name)
     if not event.is_open:
         return HttpResponseRedirect("/")
