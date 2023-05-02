@@ -1,10 +1,14 @@
 import qrcode
+import os
+from django.conf import settings
 from cryptography.fernet import Fernet
 from django.conf import settings
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from .models import Presence
 
+BASE_DIR = settings.BASE_DIR
+get_dir = lambda dir: os.path.join(BASE_DIR, dir)
 
 def encrypt(data: str) -> str:
     try:
@@ -24,7 +28,7 @@ def decrypt(data: str) -> str:
 
 def get_qr_code(text: str) -> bytes: 
     # https://www.geeksforgeeks.org/how-to-generate-qr-codes-with-a-custom-logo-using-python/
-    Logo_link = 'assets/logo-ymcc2.jpg'
+    Logo_link = get_dir('assets/logo-ymcc2.jpg')
     logo = Image.open(Logo_link)
     basewidth = 100
     # adjust image size
@@ -57,8 +61,8 @@ def write_text(draw: ImageDraw, rectang, text, position, size, align="left", fil
     w, h = rectang
 
     # Text Font
-    font =  lambda x: ImageFont.truetype('assets/Poppins-Regular.ttf', round(x * 4.1))
-    font_bold = lambda x: ImageFont.truetype('assets/Poppins-Bold.ttf', round(x * 4.1))
+    font =  lambda x: ImageFont.truetype(get_dir('assets/Poppins-Regular.ttf'), round(x * 4.1))
+    font_bold = lambda x: ImageFont.truetype(get_dir('assets/Poppins-Bold.ttf'), round(x * 4.1))
     txt = text
     txtf = font_bold(size) if (bold == True) else font(size)
 
@@ -101,7 +105,7 @@ def get_event_ticket(enc: str, presence: Presence) -> bytes:
     img.paste(qr, (166, 270))
 
     # add line
-    with Image.open('assets/line.jpg') as line:
+    with Image.open(get_dir('assets/line.jpg')) as line:
         img.paste(line, (60, 1007))
         img.paste(line, (60, 1142))
 
