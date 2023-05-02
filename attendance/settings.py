@@ -30,7 +30,7 @@ ENCRYPTION_KEY = str(os.getenv('ENCRYPTION_KEY'))
 # User key should be the same with the another app to encrypt user id
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 SITE_URL = 'https://ymcc-event.hmtaupnyk.com'
 
