@@ -7,6 +7,10 @@ from django.utils.html import strip_tags
 from django.contrib import messages
 from django.utils.safestring import mark_safe
 
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
 # not used, maybe in future
 def send_mass_html_mail(datatuple, fail_silently=False, user=None, password=None, 
                         connection=None):
@@ -65,8 +69,8 @@ def verify_registration(self, request, queryset):
             success.append(i)
         except Exception as ex:
             failed.append(i)
-            print(ex)
-            print("Sending Email Error:", queryset[i].email)
+            logger.warning(ex)
+            logger.warning("Sending Email Error:", queryset[i].email)
     for i in success:
         queryset[i].payment_check = True
         queryset[i].save()
