@@ -30,9 +30,11 @@ ENCRYPTION_KEY = str(os.getenv('ENCRYPTION_KEY'))
 # User key should be the same with the another app to encrypt user id
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = str(os.getenv('DEBUG')) == "1"
 
-SITE_URL = 'https://ymcc-event.hmtaupnyk.com'
+SITE_URL = '127.0.0.1:8000'
+if not DEBUG:
+    SITE_URL = str(os.getenv('SITE_URL'))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -139,7 +141,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 if not DEBUG:
-    STATIC_ROOT = "/home/hmtaupny/public_html/ymcc-event.hmtaupnyk.com/static"
+    STATIC_ROOT = str(os.getenv('STATIC_ROOT'))
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, '..', 'static'),
@@ -156,7 +158,7 @@ MEDIA_URL = '/media/'
 # Path where media is stored  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 if not DEBUG:
-    MEDIA_ROOT = "/home/hmtaupny/public_html/ymcc-event.hmtaupnyk.com/media"
+    MEDIA_ROOT = str(os.getenv('MEDIA_ROOT'))
 
 # SERVER EMAIL
 DEFAULT_FROM_EMAIL = str(os.getenv('DEFAULT_FROM_EMAIL'))
