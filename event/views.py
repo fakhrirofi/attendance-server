@@ -17,6 +17,11 @@ def registration(request, event_name):
     event = get_object_or_404(Event, name=unquote(event_name))
     if not event.is_open:
         return HttpResponseRedirect("/")
+    if event.max_participant != None:
+        if event.presence_set.count() >= event.max_participant:
+            event.is_open = False
+            event.save()
+            return HttpResponseRedirect("/")
     if request.method == 'POST':
         if event.is_free:
             form = RegistrationFormFree(request.POST, request.FILES)

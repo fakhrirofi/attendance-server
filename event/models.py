@@ -9,7 +9,7 @@ class Event(models.Model):
     datetime = models.DateTimeField("date time")
     description = models.TextField()
     group_link = models.CharField(max_length=100)
-    place = models.CharField(max_length=46)
+    place = models.CharField(max_length=48)
     image = models.ImageField(upload_to="event_image")
     is_free = models.BooleanField("free registration")
     is_open = models.BooleanField("open registration")
