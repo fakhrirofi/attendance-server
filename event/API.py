@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from .user_qr_code import decrypt
 from .models import Presence, attend, get_events, get_event_presence
 
@@ -66,6 +67,7 @@ def api_get_event_presence(request):
     data = get_event_presence(event_id)
     return JsonResponse(data, safe=False)
 
+@csrf_exempt
 def api_handler(request, api_type):
     if api_type == "attend":
         return api_attend(request)
