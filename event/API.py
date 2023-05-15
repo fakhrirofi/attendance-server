@@ -40,17 +40,14 @@ def api_attend(request):
         }, status=400)
 
     # check payment of the registration
-    attend_status = attend(int(presence_id))
-    if attend_status != "success":
+    attend_data = attend(int(presence_id))
+    if attend_data["status"] != "success":
         return JsonResponse({
             "status_code"    : 400,
             "message"   : "payment_check"
         }, status=400)
     
-    return JsonResponse({
-        "status_code"    : 200,
-        "message"   : "ok"
-    }, status=200)
+    return JsonResponse(attend_data, status=200)
 
 def api_get_events(request):
     if not is_valid(request):

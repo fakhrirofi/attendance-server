@@ -38,11 +38,16 @@ class Presence(models.Model):
 def attend(presence_id):
     presence = get_object_or_404(Presence, pk=presence_id)
     if not presence.payment_check:
-        return "payment not checked"
+        return {"status" : "payment not checked"}
     presence.attendance = True
     presence.datetime = timezone.now()
     presence.save()
-    return "success"
+    return {
+        "status" : "success",
+        "name"   : presence.name,
+        "institution" : presence.institution,
+        "event_name" : presence.event.name
+    }
 
 def get_events():
     data = list()

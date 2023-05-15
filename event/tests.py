@@ -31,14 +31,14 @@ class DatabaseTest(TestCase):
     
     def test_attendance_payment_not_checked(self):
         res = attend(Presence.objects.first().pk)
-        self.assertEqual(res, "payment not checked")
+        self.assertEqual(res["status"], "payment not checked")
     
     def test_attendance_success(self):
         p = Presence.objects.first()
         p.payment_check = True
         p.save()
         res = attend(p.pk)
-        self.assertEqual(res, "success")
+        self.assertEqual(res["status"], "success")
     
     def test_get_events(self):
         res = get_events()
@@ -110,7 +110,7 @@ class APITest(TestCase):
         )
         json_data = response.json()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json_data['message'], "ok")
+        self.assertEqual(json_data['status'], "success")
     
     def test_attend_presence_id_not_found(self):
         data = {
