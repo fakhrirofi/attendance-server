@@ -70,8 +70,9 @@ def api_handler(request, api_type):
         return api_attend(request)
     elif api_type == "get_events":
         return api_get_events(request)
-    elif api_type == "get_event_presence":
-        return api_get_event_presence(request)
+    # disable access for security purposes. not used in production
+    # elif api_type == "get_event_presence":
+    #     return api_get_event_presence(request)
     else:
         return JsonResponse({
             "status_code"      : 404,

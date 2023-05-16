@@ -206,38 +206,38 @@ class APITest(TestCase):
                 }
             ] 
         )
+# Disable for security purposes, not used in production
+    # def test_get_event_presence(self):
+    #     data = {
+    #         'API_KEY'   : settings.API_KEY,
+    #         'event_id'  : 1
+    #     }
+    #     response = self.client.post(
+    #         reverse('api', args=['get_event_presence']),
+    #         data
+    #     )
+    #     json_data = response.json()
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(json_data,
+    #         [
+    #             {
+    #                 'name'                  : 'alex',
+    #                 'institution'           : 'upn',
+    #                 'email'                 : "alex@student.upnyk.ac.id",
+    #                 'attendance'            : False,
+    #                 'datetime'              : None,
+    #                 'payment_check'         : True
+    #             }
+    #         ]
+    #     )
 
-    def test_get_event_presence(self):
-        data = {
-            'API_KEY'   : settings.API_KEY,
-            'event_id'  : 1
-        }
-        response = self.client.post(
-            reverse('api', args=['get_event_presence']),
-            data
-        )
-        json_data = response.json()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(json_data,
-            [
-                {
-                    'name'                  : 'alex',
-                    'institution'           : 'upn',
-                    'email'                 : "alex@student.upnyk.ac.id",
-                    'attendance'            : False,
-                    'datetime'              : None,
-                    'payment_check'         : True
-                }
-            ]
-        )
-
-    def test_get_event_presence_event_id_not_found(self):
-        data = {
-            'API_KEY'   : settings.API_KEY,
-            'event_id'  : 3
-        }
-        response = self.client.post(
-            reverse('api', args=['get_event_presence']),
-            data
-        )
-        self.assertEqual(response.status_code, 404)
+    # def test_get_event_presence_event_id_not_found(self):
+    #     data = {
+    #         'API_KEY'   : settings.API_KEY,
+    #         'event_id'  : 3
+    #     }
+    #     response = self.client.post(
+    #         reverse('api', args=['get_event_presence']),
+    #         data
+    #     )
+    #     self.assertEqual(response.status_code, 404)
