@@ -42,7 +42,7 @@ def encrypt(data: str) -> str:
 def send_qr_to_mail(presence, domain):
     subject = f"YMCC {presence.event.name} Registration"
     html_message = render_to_string('event/no_reply.html', {
-        'domain': domain, 'enc' : encrypt(str(presence.id))
+        'domain': domain, 'enc' : encrypt(str(presence.id)), 'recipient_name' : presence.name,
     })
     message = strip_tags(html_message)
     from_email = "no-reply@ymcc.hmtaupnyk.com"

@@ -1,6 +1,7 @@
 <div dir="ltr">
     <h4>Event Registration Success!</h4>
     
+    Hello, {{ recipient_name }}<br>
     Your registration has been verified, go to the following link to get whatsapp group and qr code event.<br>
     <a target="_blank" href="{{ domain }}{% url 'registered' enc %}">{{ domain }}{% url 'registered' enc %}</a><br><br>
 
