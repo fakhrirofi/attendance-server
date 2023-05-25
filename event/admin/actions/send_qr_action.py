@@ -45,7 +45,7 @@ def send_qr_to_mail(presence, domain):
         'domain': domain, 'enc' : encrypt(str(presence.id)), 'recipient_name' : presence.name,
     })
     message = strip_tags(html_message)
-    from_email = f"YMCC {presence.event.name} Registration"
+    from_email = "no-reply@ymcc.hmtaupnyk.com"
     to = presence.email
     send_mail(
         subject,
