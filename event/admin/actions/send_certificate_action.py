@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib import messages
 from django.utils.safestring import mark_safe
+from django.utils import timezone
 from PIL import Image, ImageFont, ImageDraw
 import os
 
@@ -73,13 +74,14 @@ def send_certificate(presence):
     # write participant name
     write_text(draw, (width, height), presence.name, (0, 830), size=16, align='center', bold=True)
     media_root = settings.MEDIA_ROOT
-    if not os.path.exists(os.path.join(media_root, "certificate")):
-        os.mkdir(os.path.join(media_root, "certificate"))
-    img.save(os.path.join(media_root, f"certificate/{presence.id}_{presence.name}.pdf"))
+    certificate_root = os.path.join(media_root, "certificate")
+    if not os.path.exists(certificate_root):
+        os.mkdir(certificate_root)
+    img.save(os.path.join(certificate_root, f"{presence.id}_{presence.name}.jpg"), quality=95)
     img.close()
     cert.close()
     # url that can be accessed by participant
-    cert_url = settings.SITE_URL + f"/media/certificate/{presence.id}_{presence.name}.pdf"
+    cert_url = settings.SITE_URL + f"/media/certificate/{presence.id}_{presence.name}.jpg"
     send_certificate_to_mail(presence, cert_url)
 
 def send_certificate_act(self, request, queryset):
@@ -91,6 +93,7 @@ def send_certificate_act(self, request, queryset):
         try:
             send_certificate(queryset[i])
             queryset[i].attendance = True
+            queryset[i].datetime = timezone.now()
             queryset[i].save()
             success.append(i)
         except Exception as ex:
