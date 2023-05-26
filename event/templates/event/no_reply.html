@@ -1,5 +1,5 @@
 <div dir="ltr">
-    <h4>Event Registration Success!</h4>
+    <h4>{{ event_name }} Registration Success!</h4>
     
     Hello, {{ recipient_name }}<br>
     Your registration has been verified, go to the following link to get whatsapp group and qr code event.<br>
@@ -8,8 +8,10 @@
     Best Regards,<br>
     Committee YMCC<br><br>
     
+    <!-- 
     <i>Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox.</i><br><br>
-
+     -->
+<!-- 
     <table border="0" cellspacing="0" cellpadding="0" style="font-family:&quot;Times New Roman&quot;,serif;font-size:16px">
         <tbody>
             <tr>
@@ -47,15 +49,18 @@
                 </td>
                 <td valign="top" style="padding:0cm">
                     <p class="MsoNormal" style="margin:0cm 0cm 12pt;line-height:normal;font-size:11pt;font-family:Calibri,sans-serif"><a href="mailto:ymcc.hmtaupnyk@upnyk.ac.id" style="color:blue" target="_blank">ymcc.hmtaupnyk@upnyk.ac.id</a>
-                    <!-- 
+                    MUST BE COMMENT HERE
                         Youtube: <a href="https://www.youtube.com/channel/UCJPxttZs_Dg8hxZ-vx61lgQ" style="font-family:Arial,Helvetica,sans-serif;font-size:small" target="_blank">YMCC UPNVY</a><br>
                         Instagram: <a href="https://www.instagram.com/ymcc_upnyk/?hl=id" style="font-family:Arial,Helvetica,sans-serif;font-size:small" target="_blank">@ymcc_upnyk</a><br>
                         Facebook: <a href="https://www.facebook.com/youthminingcampcompetition?_rdc=2&amp;_rdr" style="font-family:Arial,Helvetica,sans-serif;font-size:small" target="_blank">YMCC V 2023</a><br>
                         Linkedin: <a href="https://www.linkedin.com/company/youth-mining-camp-competition-2023-hmta-upnyk/" style="font-family:Arial,Helvetica,sans-serif;font-size:small" target="_blank">Youth Mining Camp Competition V 2023</a>
-                     -->
+                    MUST BE COMMENT HERE
                     </p>
                 </td>
             </tr>
         </tbody>
     </table>
+ -->
+    <p>Click <a target="_blank" href="{{ domain }}{% url 'registered' enc %}">here</a> to unsubscribe the email
+    </p>
 </div>
