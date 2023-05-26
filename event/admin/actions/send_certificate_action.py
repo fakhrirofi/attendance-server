@@ -47,7 +47,7 @@ def write_text(draw: ImageDraw, rectang, text, position, size, align="left", fil
 def send_certificate_to_mail(presence, cert_url):
     subject = f"YMCC {presence.event.name} Certificate"
     html_message = render_to_string('event/no_reply_certificate.html', {
-        'cert_url': cert_url, 'recipient_name' : presence.name,
+        'cert_url': cert_url, 'recipient_name' : presence.name, 'event_name' : presence.event.name,
     })
     message = strip_tags(html_message)
     from_email = settings.DEFAULT_FROM_EMAIL
