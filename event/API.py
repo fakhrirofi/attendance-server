@@ -39,6 +39,12 @@ def api_attend(request):
             "message"   : "different_event"
         }, status=400)
 
+    # check if the qr has been already scanned before
+    if presence.attendance:
+        previous_check = True
+    else:
+        previous_check = False
+
     # check payment of the registration
     attend_data = attend(int(presence_id))
     if attend_data["status"] != "success":
@@ -46,6 +52,9 @@ def api_attend(request):
             "status_code"    : 400,
             "message"   : "payment_check"
         }, status=400)
+    
+    if previous_check:
+        attend_data["status"] = "already_scanned_before"
     
     return JsonResponse(attend_data, status=200)
 

@@ -31,13 +31,14 @@ def registration(request, event_name):
             presence = form.save(commit=False)
             presence.event = event
             presence.save()
-            if event.is_free:
-                presence.payment_check = True
-                presence.save()
-                enc = encrypt(str(presence.pk))
-                return HttpResponseRedirect(f'/registered/{enc}')
-            else:
-                return render(request, 'event/under_review.html')
+# WARNING: edited due to prevent email to send as spam
+            # if event.is_free :
+                # presence.payment_check = True
+                # presence.save()
+            enc = encrypt(str(presence.pk))
+            return HttpResponseRedirect(f'/registered/{enc}')
+            # else:
+            #     return render(request, 'event/under_review.html')
         else:
             HttpResponse("form invalid", 400)
     else:

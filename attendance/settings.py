@@ -197,4 +197,10 @@ LOGGING = {
             'propagate': True,
         },
     },
+    'formatters': {
+        'timestamp': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
 }

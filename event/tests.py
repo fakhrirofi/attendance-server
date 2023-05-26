@@ -183,6 +183,23 @@ class APITest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(json_data['message'], "payment_check")
 
+    def test_attend_already_scanned(self):
+        presence = Presence.objects.get(pk=1)
+        presence.attendance = True
+        presence.save()
+        data = {
+            'API_KEY'   : settings.API_KEY,
+            'enc'       : self.ENC,
+            'event_id'  : 1
+        }
+        response = self.client.post(
+            reverse('api', args=['attend']),
+            data
+        )
+        json_data = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_data['status'], "already_scanned_before")
+
     def test_get_events(self):
         data = {
             'API_KEY'   : settings.API_KEY,
