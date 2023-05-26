@@ -1,7 +1,6 @@
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.core.mail import send_mail, send_mass_mail, get_connection, EmailMultiAlternatives
-from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib import messages
@@ -45,7 +44,7 @@ def send_qr_to_mail(presence, domain):
         'domain': domain, 'enc' : encrypt(str(presence.id)), 'recipient_name' : presence.name, 'event_name' : presence.event.name,
     })
     message = strip_tags(html_message)
-    from_email = "no-reply@ymcc.hmtaupnyk.com"
+    from_email = settings.DEFAULT_FROM_EMAIL
     to = presence.email
     send_mail(
         subject,

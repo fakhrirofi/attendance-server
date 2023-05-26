@@ -2,8 +2,14 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from threading import Thread
+from .admin import send_certificate
 from .user_qr_code import decrypt
 from .models import Presence, attend, get_events, get_event_presence
+
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def is_valid(request):
     api_key = request.POST.get("API_KEY", "")
@@ -55,6 +61,13 @@ def api_attend(request):
     
     if previous_check:
         attend_data["status"] = "already_scanned_before"
+    
+    # automate send certificate when qrcode scanned
+    try:
+        Thread(target=send_certificate, args=(presence,)).start()
+    except Exception as ex:
+        logger.warning(ex)
+        logger.warning(f"Sending Certificate error, id={presence.id}, name={presence.name}")
     
     return JsonResponse(attend_data, status=200)
 
