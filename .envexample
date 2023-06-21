@@ -1,0 +1,19 @@
+DEBUG = 1
+
+SITE_URL = 'https://ymcc-event.hmtaupnyk.com'
+STATIC_ROOT = '/home/cpanelusername/public_html/ymcc-event.hmtaupnyk.com/static'
+MEDIA_ROOT = '/home/cpanelusername/public_html/ymcc-event.hmtaupnyk.com/media'
+
+SECRET_KEY = 'random-django-secret-key'
+API_KEY = 'api-key'
+ENCRYPTION_KEY = 'key-generated-from-fernet'
+
+RECAPTCHA_PUBLIC_KEY = 'recaptcha-public'
+RECAPTCHA_PRIVATE_KEY = 'recaptcha-private'
+
+# SERVER EMAIL
+DEFAULT_FROM_EMAIL = 'noreply@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply@gmail.com'
+EMAIL_HOST_PASSWORD = 'googleapppassword'
+EMAIL_PORT = '465'
